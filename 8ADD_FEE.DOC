@@ -1,0 +1,211 @@
+void add_f(),pay_f();
+char choice;
+void add_fee()
+{
+	while(1)
+	{
+	window(1,1,80,25);
+	textbackground(WHITE);
+	clrscr();
+	window(25,5,60,20);
+	textbackground(BLUE);
+	clrscr();
+	textcolor(RED);
+	gotoxy(12,2);
+	cprintf("ADD / PAY FEE ");
+	gotoxy(1,3);
+	for(i=1;i<=36;i++)
+		cprintf("-");
+	gotoxy(2,5);
+	cprintf("1. Add fee in the student.");
+	gotoxy(2,7);
+	cprintf("2. Pay fee to the school.");
+	gotoxy(2,9);
+	cprintf("3. To back main manu . ");
+	gotoxy(1,11);
+	for(i=1;i<=36;i++)
+		cprintf("-");
+	textcolor(RED+BLINK);
+	gotoxy(3,13);
+	cprintf("Enter your choice : ");
+	choice=getchar();
+	switch(choice)
+	{
+		case '1':
+			add_f();
+			break;
+		case '2':
+			pay_f();
+			break;
+		case '3':
+			manu();
+		default :
+			add_fee();
+	}
+  }
+}
+void add_f()
+{
+	int pos,n1=0,n;
+	float f;
+	window(1,1,80,25);
+	textcolor(WHITE);
+	clrscr();
+	textcolor(RED);
+	gotoxy(33,2);
+	cprintf("EDIT DATA ");
+	printf("\n");
+	for(i=1;i<=80;i++)
+		cprintf("-");
+	cprintf("Enter serial No. : ");
+	scanf("%d",&n);
+	fp=fopen("record.dat","r+b");
+	while(fread(&dd,sizeof(dd),1,fp)!=NULL)
+	{
+	 if(n==dd.sr)
+	 {
+	 clrscr();
+	 printf("\n");
+	cprintf("Serial number    : %d",dd.sr);
+	printf("\n");
+	cprintf("Addmission date  : %s",dd.date);
+	printf("\n");
+	cprintf("School name      : %s",dd.school);
+	printf("\n");
+	cprintf("Class            : %s",dd.class);
+	printf("\n");
+	cprintf("Roll             : %d",dd.roll);
+	printf("\n");
+	cprintf("Student's name   : %s",dd.name);
+	printf("\n");
+	cprintf("Date of birth    : %s",dd.dob);
+	printf("\n");
+	cprintf("Father's name    : %s",dd.father);
+	printf("\n");
+	cprintf("Contact no.      : %s",dd.phone);
+	printf("\n");
+	cprintf("Email id         : %s",dd.email);
+	printf("\n");
+	cprintf("Fees (Rs.)       : %g",dd.fee);
+	printf("\n");
+	cprintf("Address          : %s",dd.address);
+	n1=1;
+	break;
+	 }
+	}
+	if(n1==0)
+	{
+		gotoxy(20,10);
+	 textcolor(RED+BLINK);
+	 cprintf("Record not found , press any key.....");
+	 getch();
+	 return;
+	}
+	else
+	{
+	pos=ftell(fp);
+	fseek(fp,pos-sizeof(dd),SEEK_SET);
+	printf("\n\n");
+	textcolor(RED);
+	cprintf("ADD AMOURNT ");
+	printf("\n");
+	textcolor(WHITE);
+	for(i=1;i<=80;i++)
+	cprintf("-");
+	fflush(stdin);
+	cprintf("Enter dues fees (rs.): ");
+	scanf("%g",&f);
+	dd.fee=dd.fee+f;
+	printf("\n");
+	cprintf("Total dues (Rs.) : %g",dd.fee);
+	fwrite(&dd,sizeof(dd),1,fp);
+	fclose(fp);
+	printf("\n\n");
+	textcolor(RED+BLINK);
+	cprintf("Successfully add amount , press any key.......");
+	}
+getch();
+}
+void pay_f()
+{
+int pos,n1=0,n;
+	float f;
+	window(1,1,80,25);
+	textcolor(WHITE);
+	clrscr();
+	textcolor(RED);
+	gotoxy(33,2);
+	cprintf("EDIT DATA ");
+	printf("\n");
+	for(i=1;i<=80;i++)
+		cprintf("-");
+	cprintf("Enter serial No. : ");
+	scanf("%d",&n);
+	fp=fopen("record.dat","r+b");
+	while(fread(&dd,sizeof(dd),1,fp)!=NULL)
+	{
+	 if(n==dd.sr)
+	 {
+	 clrscr();
+	 printf("\n");
+	cprintf("Serial number    : %d",dd.sr);
+	printf("\n");
+	cprintf("Addmission date  : %s",dd.date);
+	printf("\n");
+	cprintf("School name      : %s",dd.school);
+	printf("\n");
+	cprintf("Class            : %s",dd.class);
+	printf("\n");
+	cprintf("Roll             : %d",dd.roll);
+	printf("\n");
+	cprintf("Student's name   : %s",dd.name);
+	printf("\n");
+	cprintf("Date of birth    : %s",dd.dob);
+	printf("\n");
+	cprintf("Father's name    : %s",dd.father);
+	printf("\n");
+	cprintf("Contact no.      : %s",dd.phone);
+	printf("\n");
+	cprintf("Email id         : %s",dd.email);
+	printf("\n");
+	cprintf("Fees (Rs.)       : %g",dd.fee);
+	printf("\n");
+	cprintf("Address          : %s",dd.address);
+	n1=1;
+	break;
+	 }
+	}
+	if(n1==0)
+	{
+		gotoxy(20,10);
+	 textcolor(RED+BLINK);
+	 cprintf("Record not found , press any key.....");
+	 getch();
+	 return;
+	}
+	else
+	{
+	pos=ftell(fp);
+	fseek(fp,pos-sizeof(dd),SEEK_SET);
+	printf("\n\n");
+	textcolor(RED);
+	cprintf("PAY AMOURNT ");
+	printf("\n");
+	textcolor(WHITE);
+	for(i=1;i<=80;i++)
+	cprintf("-");
+	fflush(stdin);
+	cprintf("Enter fees (rs.): ");
+	scanf("%g",&f);
+	dd.fee=dd.fee-f;
+	printf("\n");
+	cprintf("Total dues (Rs.) : %g",dd.fee);
+	fwrite(&dd,sizeof(dd),1,fp);
+	fclose(fp);
+	printf("\n\n");
+	textcolor(RED+BLINK);
+	cprintf("Successfully payment , press any key.......");
+	}
+getch();
+
+}

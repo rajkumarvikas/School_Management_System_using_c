@@ -1,0 +1,41 @@
+void show_data()
+{
+	window(1,1,80,25);
+	textbackground(WHITE);
+	clrscr();
+	textcolor(RED);
+	gotoxy(33,2);
+	cprintf("ALL DATA OF STUDENT ");
+	printf("\n");
+	for(i=1;i<=80;i++)
+		cprintf("-");
+	textcolor(RED);
+	gotoxy(2,4);
+	cprintf("SR.NO.");
+	gotoxy(12,4);
+	cprintf("ROLL NO.");
+	gotoxy(25,4);
+	cprintf("STUDENT'S NAME");
+	gotoxy(44,4);
+	cprintf("FATHER'S NAME");
+	gotoxy(63,4);
+	cprintf("DUES AMOUNT");
+	fp=fopen("record.dat","rb");
+	textcolor(BLUE);
+	i=5;
+	while(fread(&dd,sizeof(dd),1,fp)!=NULL)
+	{
+	gotoxy(2,i);
+	cprintf("%d",dd.sr);
+	gotoxy(12,i);
+	cprintf("%d",dd.roll);
+	gotoxy(25,i);
+	cprintf("%s",dd.name);
+	gotoxy(44,i);
+	cprintf("%s",dd.father);
+	gotoxy(64,i);
+	cprintf("%g",dd.fee);
+	i++;
+	}
+	getch();
+}

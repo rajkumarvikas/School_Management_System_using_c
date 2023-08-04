@@ -1,0 +1,179 @@
+#include<stdio.h>
+#include<conio.h>
+#include<dos.h>
+#include<stdlib.h>
+#include<string.h>
+#include<variable.h>
+#include"add_data.h"
+#include"edit_data.h"
+#include"delete_data.h"
+#include"search_data.h"
+#include"show_data.h"
+#include"add_fee.h"
+#include"change_password.h"
+void add_data(),edit_data(),delete_data(),search_data(),show_data(),add_fee(),change_password();
+char choice;
+char pass[20],ch,original[15];
+void main()
+{
+	window(1,1,80,25);
+	textbackground(BLUE);
+	clrscr();
+	clrscr();
+	window(20,7,60,17);
+	textbackground(BLACK);
+	clrscr();
+	gotoxy(5,5);
+	textcolor(RED+BLINK);
+	cprintf("Enter password : ");
+	i=0;
+  while(1)
+   {
+	ch=getch();
+	if(ch==13)
+	{
+		pass[i]='\0';
+		break;
+	}
+	pass[i++]=ch;
+	printf("*");
+   }
+   fp=fopen("pass.dat","r");
+   fgets(original,15,fp);
+   if(strcmp(pass,original)!=0)
+   {
+	window(1,1,80,25);
+	textbackground(WHITE);
+	clrscr();
+	window(20,2,60,22);
+	textbackground(BLACK);
+	clrscr();
+	gotoxy(3,10);
+	textcolor(RED+BLINK);
+	cprintf("Wrong password , press any key .....");
+	gotoxy(20,12);
+	getch();
+	main();
+	}
+	else
+	{
+	window(1,1,80,25);
+	textbackground(WHITE);
+	clrscr();
+	for(i=1;i<=80;i++)
+	{
+		for(j=1;j<=25;j++)
+			{
+				textcolor(GREEN);
+				cprintf("*");
+			}
+	}
+	window(20,2,60,22);
+	textbackground(RED);
+	clrscr();
+	textcolor(BLUE);
+	gotoxy(8,3);
+	cprintf("SCHOOL MANAGEMENT SYSTEM ");
+	gotoxy(9,5);
+	cprintf("VERSION : 2.0 RELOADED");
+	gotoxy(2,7);
+	textcolor(WHITE);
+	cprintf("DEVELOPER ->  VIKAS KUMAR.");
+	textcolor(BLUE);
+	gotoxy(15,9);
+	cprintf("ROLL NO. : 01 ");
+	gotoxy(15,11);
+	cprintf("SEMESTER : FIRST ");
+	gotoxy(15,13);
+	cprintf("COURSE   : BCA");
+	gotoxy(2,15);
+	cprintf("COLLEGE  : S R K G COLLEGE , SITAMARHI.");
+	gotoxy(1,16);
+	textcolor(GREEN);
+	for(i=1;i<=41;i++)
+		cprintf("-");
+	gotoxy(1,17);
+	for(i=1;i<=41;i++)
+		cprintf("=");
+	gotoxy(2,19);
+	textcolor(GREEN+BLINK);
+	cprintf("Please wait.. : ");
+	for(i=1;i<=20;i++)
+	{
+	 cprintf("%c",220);
+	 delay(500);
+	}
+	manu();
+   }
+	getch();
+}
+void manu()
+{
+ while(1)
+  {
+	window(1,1,80,25);
+	textbackground(GREEN);
+	clrscr();
+	window(20,2,60,22);
+	textbackground(BLACK);
+	clrscr();
+	textcolor(RED);
+	gotoxy(15,2);
+	cprintf("MAIN-MANU");
+	gotoxy(1,3);
+	for(i=1;i<=41;i++)
+		cprintf("-");
+	gotoxy(5,4);
+	cprintf("1. ADD NEW STUDENT DATA.");
+	gotoxy(5,6);
+	cprintf("2. EDIT STUDENT DATA.");
+	gotoxy(5,8);
+	cprintf("3. DELETE STUDENT DATA.");
+	gotoxy(5,10);
+	cprintf("4. SEARCH STUDENT DATA.");
+	gotoxy(5,12);
+	cprintf("5. SHOW ALL STUDENT DATA.");
+	gotoxy(5,14);
+	cprintf("6. ADD / PAY FEE.");
+	gotoxy(5,16);
+	cprintf("7. CHANGE PASSWORD.");
+	gotoxy(5,18);
+	cprintf("8. EXIT.");
+	gotoxy(1,19);
+	for(i=1;i<=41;i++)
+		cprintf("-");
+	textcolor(WHITE+RED+BLINK);
+	gotoxy(7,20);
+	cprintf("ENTER YOUR CHOICE : ");
+	textcolor(WHITE);
+	choice=getchar();
+	switch(choice)
+	{
+		case '1':
+			add_data();
+			break;
+		case '2':
+			edit_data();
+			break;
+		case '3':
+			delete_data();
+			break;
+		case '4':
+			search_data();
+			break;
+		case '5':
+			show_data();
+			break;
+		case '6':
+			add_fee();
+			break;
+		case '7':
+			change_password();
+			break;
+		case '8':
+			exit(0);
+		default:
+			manu();
+	}
+  }
+}

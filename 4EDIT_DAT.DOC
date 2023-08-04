@@ -1,0 +1,108 @@
+void edit_data()
+{
+	int pos,n1=0,n;
+	window(1,1,80,25);
+	textcolor(WHITE);
+	clrscr();
+	textcolor(RED);
+	gotoxy(33,2);
+	cprintf("EDIT DATA ");
+	printf("\n");
+	for(i=1;i<=80;i++)
+		cprintf("-");
+	cprintf("Enter serial No. : ");
+	scanf("%d",&n);
+	fp=fopen("record.dat","r+b");
+	while(fread(&dd,sizeof(dd),1,fp)!=NULL)
+	{
+	 if(dd.sr==n)
+	 {
+	 clrscr();
+	 printf("\n");
+	cprintf("Serial number    : %d",dd.sr);
+	printf("\n");
+	cprintf("Addmission date  : %s",dd.date);
+	printf("\n");
+	cprintf("School name      : %s",dd.school);
+	printf("\n");
+	cprintf("Class            : %s",dd.class);
+	printf("\n");
+	cprintf("Roll             : %d",dd.roll);
+	printf("\n");
+	cprintf("Student's name   : %s",dd.name);
+	printf("\n");
+	cprintf("Date of birth    : %s",dd.dob);
+	printf("\n");
+	cprintf("Father's name    : %s",dd.father);
+	printf("\n");
+	cprintf("Contact no.      : %s",dd.phone);
+	printf("\n");
+	cprintf("Email id         : %s",dd.email);
+	printf("\n");
+	cprintf("Fees (Rs.)       : %g",dd.fee);
+	printf("\n");
+	cprintf("Address          : %s",dd.address);
+	n1=1;
+	break;
+	 }
+	}
+	if(n1==0)
+	{
+		gotoxy(20,10);
+	 textcolor(RED+BLINK);
+	 cprintf("Record not found , press any key.....");
+	 getch();
+	 return;
+	}
+	else
+	{
+	pos=ftell(fp);
+	fseek(fp,pos-sizeof(dd),SEEK_SET);
+	printf("\n\n");
+	textcolor(RED);
+	cprintf("ADD NEW RECORDS ");
+	printf("\n");
+	textcolor(WHITE);
+	for(i=1;i<=80;i++)
+	cprintf("-");
+	fflush(stdin);
+	cprintf("Enter admission date : ");
+	gets(dd.date);
+	fflush(stdin);
+	cprintf("Enter school name : ");
+	gets(dd.school);
+	fflush(stdin);
+	cprintf("Enter class : ");
+	gets(dd.class);
+	fflush(stdin);
+	cprintf("Enter roll : ");
+	scanf("%d",&dd.roll);
+	fflush(stdin);
+	cprintf("Enter student's name : ");
+	gets(dd.name);
+	fflush(stdin);
+	cprintf("Enter date of birth : ");
+	gets(dd.dob);
+	fflush(stdin);
+	cprintf("Enter father's name : ");
+	gets(dd.father);
+	fflush(stdin);
+	cprintf("Enter contact no. : ");
+	gets(dd.phone);
+	fflush(stdin);
+	cprintf("Enter email id : ");
+	gets(dd.email);
+	fflush(stdin);
+	cprintf("Enter fees (rs.): ");
+	scanf("%g",&dd.fee);
+	fflush(stdin);
+	cprintf("Enter address :");
+	gets(dd.address);
+	fwrite(&dd,sizeof(dd),1,fp);
+	fclose(fp);
+	printf("\n\n");
+	textcolor(RED+BLINK);
+	cprintf("Successfully updated data , press any key.......");
+	}
+	getch();
+}

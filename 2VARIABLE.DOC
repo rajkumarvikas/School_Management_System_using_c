@@ -1,0 +1,19 @@
+struct data
+{
+	int sr;
+	char school[100];
+	char class[50];
+	int roll;
+	char name[30];
+	char father[30];
+	char gender;
+	char address[100];
+	char phone[15];
+	char email[30];
+	char date[20];
+	char dob[20];
+	float fee;
+}dd;
+void manu();
+int a,b,c,d,e,f,i,j;
+FILE *fp,*fp1;

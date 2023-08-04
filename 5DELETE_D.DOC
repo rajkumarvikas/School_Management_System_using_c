@@ -1,0 +1,83 @@
+void delete_data()
+{
+	int s,t=0;
+	char ch;
+	window(1,1,80,25);
+	textcolor(WHITE);
+	clrscr();
+	textcolor(RED);
+	gotoxy(33,2);
+	cprintf("DELETE DATA ");
+	printf("\n");
+	for(i=1;i<=80;i++)
+		cprintf("-");
+	textcolor(BLUE+RED);
+	cprintf("Enter serial number : ");
+	scanf("%d",&s);
+	fp=fopen("record.dat","r+b");
+	t=0;
+	while(fread(&dd,sizeof(dd),1,fp)!=NULL)
+	{
+	if(dd.sr==s)
+	{
+	clrscr();
+	printf("\n");
+	textcolor(BLUE+RED);
+	cprintf("Serial number    : %d",dd.sr);
+	printf("\n");
+	cprintf("Admission date : %s",dd.date);
+	printf("\n");
+	cprintf("School name      : %s",dd.school);
+	printf("\n");
+	cprintf("Class            : %s",dd.class);
+	printf("\n");
+	cprintf("Roll             : %d",dd.roll);
+	printf("\n");
+	cprintf("Student's name   : %s",dd.name);
+	printf("\n");
+	cprintf("Date of birth    : %s",dd.dob);
+	printf("\n");
+	cprintf("Father's name    : %s",dd.father);
+	printf("\n");
+	cprintf("Contact no.      : %s",dd.phone);
+	printf("\n");
+	cprintf("Email id         : %s",dd.email);
+	printf("\n");
+	cprintf("Fees (Rs.)       : %g",dd.fee);
+	printf("\n");
+	cprintf("Address          : %s",dd.address);
+	t=1;
+	break;
+	}
+	}
+	if(t==0)
+	{
+	gotoxy(20,13);
+	textcolor(RED+BLINK);
+	cprintf("Record not found , press any key......");
+	fclose(fp);
+	getch();
+	return;
+	}
+	printf("\n\n\n");
+	cprintf("Do you wants to delete (y/n) : ");
+	ch=getche();
+	if(ch=='y'||ch=='Y')
+	{
+	rewind(fp);
+	fp1=fopen("temp.dat","w");
+	while(fread(&dd,sizeof(dd),1,fp)!='\0')
+	{
+	if(dd.sr!=s)
+	 fwrite(&dd,sizeof(dd),1,fp1);
+	}
+	fclose(fp);
+	fclose(fp1);
+	remove("record.dat");
+	rename("temp.dat","record.dat");
+	printf("\n\n");
+	textcolor(RED+BLINK);
+	cprintf("Record succefully deleted , press any key......");
+	}
+	getch();
+}

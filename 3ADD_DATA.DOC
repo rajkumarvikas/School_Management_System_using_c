@@ -1,0 +1,69 @@
+int sr();
+void add_data()
+{
+	struct date d;
+	window(1,1,80,25) ;
+	textbackground(0);
+	clrscr();
+	textcolor(RED);
+	gotoxy(33,2);
+	cprintf("ADD NEW DATA");
+	printf("\n");
+	for(i=1;i<=80;i++)
+		cprintf("-");
+	dd.sr=sr();
+	cprintf("Serial number : %d",dd.sr);
+	fflush(stdin);
+	printf("\n");
+	getdate(&d);
+	cprintf("Enter admission date : ");
+	gets(dd.date);
+	fflush(stdin);
+	cprintf("Enter school name : ");
+	gets(dd.school);
+	fflush(stdin);
+	cprintf("Enter class : ");
+	gets(dd.class);
+	fflush(stdin);
+	cprintf("Enter roll : ");
+	scanf("%d",&dd.roll);
+	fflush(stdin);
+	cprintf("Enter student's name : ");
+	gets(dd.name);
+	fflush(stdin);
+	cprintf("Enter date of birth : ");
+	gets(dd.dob);
+	fflush(stdin);
+	cprintf("Enter father's name : ");
+	gets(dd.father);
+	fflush(stdin);
+	cprintf("Enter contact no. : ");
+	gets(dd.phone);
+	fflush(stdin);
+	cprintf("Enter email id : ");
+	gets(dd.email);
+	fflush(stdin);
+	cprintf("Enter fees rs. : ");
+	scanf("%g",&dd.fee);
+	fflush(stdin);
+	cprintf("Enter address :");
+	gets(dd.address);
+	fp=fopen("record.dat","a");
+	fwrite(&dd,sizeof(dd),1,fp);
+	printf("\n\n");
+	textcolor(WHITE+BLINK);
+	cprintf("Successfully registered data , press any key.......");
+	fclose(fp);
+	getch();
+}
+int sr()
+{
+fp=fopen("record.dat","rb");
+a=sizeof(dd);
+fseek(fp,-a,SEEK_END);
+fread(&dd,sizeof(dd),1,fp);
+b=dd.sr;
+fclose(fp);
+b++;
+return (b);
+}

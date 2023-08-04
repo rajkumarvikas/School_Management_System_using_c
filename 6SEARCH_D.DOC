@@ -1,0 +1,390 @@
+void search_data()
+{
+	char choice;
+	void search_sr(),search_roll(),search_name(),search_phone(),search_father();
+	while(1)
+	{
+	window(1,1,80,25);
+	textbackground(BLACK);
+	clrscr();
+	window(20,2,60,22);
+	textbackground(GREEN);
+	clrscr();
+	textcolor(WHITE);
+	gotoxy(15,2);
+	cprintf("SEARCH-DATA");
+	gotoxy(1,3);
+	for(i=1;i<=41;i++)
+		cprintf("-");
+	gotoxy(5,4);
+	cprintf("1. SEARCH BY SERIAL NO.");
+	gotoxy(5,6);
+	cprintf("2. SEARCH BY ROLL NO.");
+	gotoxy(5,8);
+	cprintf("3. SEARCH BY NAME.");
+	gotoxy(5,10);
+	cprintf("4. SEARCH BY PHONE.");
+	gotoxy(5,12);
+	cprintf("5. SEARCH BY FATHER'S NAME");
+	gotoxy(5,14);
+	cprintf("6. BACK TO MAIN MANU.");
+	gotoxy(1,16);
+	for(i=1;i<=41;i++)
+		cprintf("-");
+	textcolor(RED+BLINK);
+	gotoxy(7,18);
+	cprintf("ENTER YOUR CHOICE : ");
+	choice=getchar();
+	textcolor(BLUE);
+	switch(choice)
+	{
+		case '1':
+			search_sr();
+			break;
+		case '2':
+			search_roll();
+			break;
+		case '3':
+			search_name();
+			break;
+		case '4':
+			search_phone();
+			break;
+		case '5':
+			search_father();
+			break;
+		case '6':
+			manu();
+			break;
+		default:
+			search_data();
+	}
+  }
+}
+void search_sr()
+{
+	int s,t;
+	window(1,1,80,25);
+	textbackground(YELLOW);
+	clrscr();
+	gotoxy(33,2);
+	cprintf("SEARCH BY SERIAL NUMBER ");
+	printf("\n");
+	for(i=1;i<=80;i++)
+		cprintf("-");
+	cprintf("Enter serial number : ");
+	scanf("%d",&s);
+	fp=fopen("record.dat","r+b");
+	t=0;
+	while(fread(&dd,sizeof(dd),1,fp)!=NULL)
+	{
+	if(dd.sr==s)
+	{
+	window(1,1,80,25);
+	textbackground(BLACK);
+	clrscr();
+	window(3,5,77,20);
+	textbackground(WHITE);
+	clrscr();
+	gotoxy(2,2);
+	cprintf("Serial number    : %d",dd.sr);
+	gotoxy(2,3);
+	cprintf("Admission date   : %s",dd.date);
+	gotoxy(2,4);
+	cprintf("School name      : %s",dd.school);
+	gotoxy(2,5);
+	cprintf("Class            : %s",dd.class);
+	gotoxy(2,6);
+	cprintf("Roll             : %d",dd.roll);
+	gotoxy(2,7);
+	cprintf("Student's name   : %s",dd.name);
+	gotoxy(2,8);
+	cprintf("Date of birth    : %s",dd.dob);
+	gotoxy(2,9);
+	cprintf("Father's name    : %s",dd.father);
+	gotoxy(2,10);
+	cprintf("Contact no.      : %s",dd.phone);
+	gotoxy(2,11);
+	cprintf("Email id         : %s",dd.email);
+	gotoxy(2,12);
+	cprintf("Fees (Rs.)       : %g",dd.fee);
+	gotoxy(2,13);
+	cprintf("Address     : %s",dd.address);
+	t=1;
+	break;
+	}
+	}
+	if(t!=1)
+	{
+	gotoxy(20,13);
+	textcolor(WHITE+BLINK);
+	cprintf("Record not found , press any key...... ");
+	getch();
+	return;
+	}
+	fclose(fp);
+	getch();
+}
+void search_roll()
+{
+	int s,t=0;
+	window(1,1,80,25);
+	textbackground(WHITE);
+	clrscr();
+	gotoxy(33,2);
+	cprintf("SEARCH BY ROLL NUMBER ");
+	printf("\n");
+	for(i=1;i<=80;i++)
+		cprintf("-");
+	cprintf("Enter roll number : ");
+	scanf("%d",&s);
+	fp=fopen("record.dat","r+b");
+	t=0;
+	while(fread(&dd,sizeof(dd),1,fp)!=NULL)
+	{
+	if(dd.roll==s)
+	{
+	window(1,1,80,25);
+	textbackground(BLACK);
+	clrscr();
+	window(3,5,77,20);
+	textbackground(WHITE);
+	clrscr();
+	gotoxy(2,2);
+	cprintf("Serial number    : %d",dd.sr);
+	gotoxy(2,3);
+	cprintf("Admission date   : %s",dd.date);
+	gotoxy(2,4);
+	cprintf("School name      : %s",dd.school);
+	gotoxy(2,5);
+	cprintf("Class            : %s",dd.class);
+	gotoxy(2,6);
+	cprintf("Roll             : %d",dd.roll);
+	gotoxy(2,7);
+	cprintf("Student's name   : %s",dd.name);
+	gotoxy(2,8);
+	cprintf("Date of birth    : %s",dd.dob);
+	gotoxy(2,9);
+	cprintf("Father's name    : %s",dd.father);
+	gotoxy(2,10);
+	cprintf("Contact no.      : %s",dd.phone);
+	gotoxy(2,11);
+	cprintf("Email id         : %s",dd.email);
+	gotoxy(2,12);
+	cprintf("Fees (Rs.)       : %g",dd.fee);
+	gotoxy(2,13);
+	cprintf("Address     : %s",dd.address);
+	t=1;
+	break;
+	}
+	}
+	if(t!=1)
+	{
+	gotoxy(20,13);
+	textcolor(WHITE+BLINK);
+	cprintf("Record not found , press any key...... ");
+	getch();
+	return;
+	}
+	fclose(fp);
+	getch();
+}
+void search_name()
+{
+	int t=0;
+	char s[30];
+	window(1,1,80,25);
+	textbackground(WHITE);
+	clrscr();
+	gotoxy(33,2);
+	cprintf("SEARCH BY NAME ");
+	printf("\n");
+	for(i=1;i<=80;i++)
+		cprintf("-");
+	fflush(stdin);
+	cprintf("Enter Name : ");
+	gets(s);
+	fp=fopen("record.dat","r+b");
+	t=0;
+	while(fread(&dd,sizeof(dd),1,fp)!=NULL)
+	{
+	if(strcmpi(dd.name,s)==0)
+	{
+	window(1,1,80,25);
+	textbackground(BLACK);
+	clrscr();
+	window(3,5,77,20);
+	textbackground(WHITE);
+	clrscr();
+	gotoxy(2,2);
+	cprintf("Serial number    : %d",dd.sr);
+	gotoxy(2,3);
+	cprintf("Admission date   : %s",dd.date);
+	gotoxy(2,4);
+	cprintf("School name      : %s",dd.school);
+	gotoxy(2,5);
+	cprintf("Class            : %s",dd.class);
+	gotoxy(2,6);
+	cprintf("Roll             : %d",dd.roll);
+	gotoxy(2,7);
+	cprintf("Student's name   : %s",dd.name);
+	gotoxy(2,8);
+	cprintf("Date of birth    : %s",dd.dob);
+	gotoxy(2,9);
+	cprintf("Father's name    : %s",dd.father);
+	gotoxy(2,10);
+	cprintf("Contact no.      : %s",dd.phone);
+	gotoxy(2,11);
+	cprintf("Email id         : %s",dd.email);
+	gotoxy(2,12);
+	cprintf("Fees (Rs.)       : %g",dd.fee);
+	gotoxy(2,13);
+	cprintf("Address     : %s",dd.address);
+	t=1;
+	break;
+	}
+	}
+	if(t!=1)
+	{
+	gotoxy(20,13);
+	textcolor(WHITE+BLINK);
+	cprintf("Record not found , press any key...... ");
+	getch();
+	return;
+	}
+	fclose(fp);
+	getch();
+
+}
+void search_phone()
+{
+int t=0;
+	char s[30];
+	window(1,1,80,25);
+	textbackground(WHITE);
+	clrscr();
+	gotoxy(33,2);
+	cprintf("SEARCH BY PHONE ");
+	printf("\n");
+	for(i=1;i<=80;i++)
+		cprintf("-");
+	fflush(stdin);
+	cprintf("Enter phone : ");
+	gets(s);
+	fp=fopen("record.dat","r+b");
+	t=0;
+	while(fread(&dd,sizeof(dd),1,fp)!=NULL)
+	{
+	if(strcmpi(dd.phone,s)==0)
+	{
+	window(1,1,80,25);
+	textbackground(BLACK);
+	clrscr();
+	window(3,5,77,20);
+	textbackground(WHITE);
+	clrscr();
+	gotoxy(2,2);
+	cprintf("Serial number    : %d",dd.sr);
+	gotoxy(2,3);
+	cprintf("Admission date   : %s",dd.date);
+	gotoxy(2,4);
+	cprintf("School name      : %s",dd.school);
+	gotoxy(2,5);
+	cprintf("Class            : %s",dd.class);
+	gotoxy(2,6);
+	cprintf("Roll             : %d",dd.roll);
+	gotoxy(2,7);
+	cprintf("Student's name   : %s",dd.name);
+	gotoxy(2,8);
+	cprintf("Date of birth    : %s",dd.dob);
+	gotoxy(2,9);
+	cprintf("Father's name    : %s",dd.father);
+	gotoxy(2,10);
+	cprintf("Contact no.      : %s",dd.phone);
+	gotoxy(2,11);
+	cprintf("Email id         : %s",dd.email);
+	gotoxy(2,12);
+	cprintf("Fees (Rs.)       : %g",dd.fee);
+	gotoxy(2,13);
+	cprintf("Address     : %s",dd.address);
+	t=1;
+	break;
+	}
+	}
+	if(t!=1)
+	{
+	gotoxy(20,13);
+	textcolor(WHITE+BLINK);
+	cprintf("Record not found , press any key...... ");
+	getch();
+	return;
+	}
+	fclose(fp);
+	getch();
+}
+void search_father()
+{
+	int n;
+	char s[40];
+	window(1,1,80,25);
+	textbackground(BLACK);
+	textcolor(RED);
+	clrscr();
+	fflush(stdin);
+	cprintf("Enter father's name : ");
+	gets(s);
+	n=0;
+	window(1,1,80,25);
+	textbackground(WHITE);
+	clrscr();
+	textcolor(RED);
+	gotoxy(33,2);
+	cprintf("SEARCH BY FATHER'S NAME ");
+	printf("\n");
+	for(i=1;i<=80;i++)
+		cprintf("-");
+	textcolor(RED);
+	gotoxy(2,4);
+	cprintf("SR.NO.");
+	gotoxy(12,4);
+	cprintf("ROLL NO.");
+	gotoxy(25,4);
+	cprintf("STUDENT'S NAME");
+	gotoxy(44,4);
+	cprintf("FATHER'S NAME");
+	gotoxy(63,4);
+	cprintf("DUES AMOUNT");
+	fp=fopen("record.dat","rb");
+	textcolor(BLUE);
+	i=6;
+	while(fread(&dd,sizeof(dd),1,fp)!='\0')
+	{
+	if(strcmpi(s,dd.father)==0)
+	{
+	gotoxy(2,i);
+	cprintf("%d",dd.sr);
+	gotoxy(12,i);
+	cprintf("%d",dd.roll);
+	gotoxy(25,i);
+	cprintf("%s",dd.name);
+	gotoxy(44,i);
+	cprintf("%s",dd.father);
+	gotoxy(64,i);
+	cprintf("%g",dd.fee);
+	n=1;
+	i++;
+	}
+	}
+	if(n==0)
+	{
+	 window(1,1,80,25);
+	 textbackground(BLACK);
+	 clrscr();
+	 textcolor(RED+BLINK);
+	 gotoxy(20,13);
+	 cprintf("Record not found, press any key.......");
+	 getch();
+	 return;
+	}
+	getch();
+}

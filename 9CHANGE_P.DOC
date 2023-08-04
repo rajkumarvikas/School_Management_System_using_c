@@ -1,0 +1,53 @@
+void change_password()
+{
+char oldp[15],newp[15],comp[15],original[15];
+window(1,1,80,25);
+textbackground(BLACK);
+clrscr();
+gotoxy(33,2);
+textcolor(RED);
+cprintf("CHANGE PASSWORD ");
+printf("\n");
+for(i=1;i<=80;i++)
+	cprintf("-");
+textcolor(RED);
+cprintf("Enter old password : ");
+fflush(stdin);
+gets(oldp);
+printf("\n");
+fp=fopen("pass.dat","r");
+fflush(stdin);
+fgets(original,15,fp);
+fclose(fp);
+if(strcmp(original,oldp)==0)
+{
+cprintf("Enter new password : ");
+fflush(stdin);
+gets(newp);
+printf("\n");
+cprintf("Enter conform password : ");
+gets(comp);
+if(strcmp(newp,comp)==0)
+{
+ fp=fopen("pass.dat","w");
+ fputs(newp,fp);
+ fclose(fp);
+ printf("\n");
+ textcolor(RED+BLINK);
+ cprintf("Successfully changed password , press any key ....");
+}
+else
+{
+textcolor(RED+BLINK);
+printf("\n");
+cprintf("New and comform password not matched , press any key....");
+}
+}
+else
+{
+printf("\n");
+textcolor(RED+BLINK);
+cprintf("Wrong password , press any key ........");
+}
+getch();
+}
